@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+
+</head>
+<!--@extends('layouts.admin')-->
+
+<!--@section('content')-->
+<!--@if(Session::has('success'))-->
+<body>
+<div layout:fragment="content">
+    <!--@extends('layouts.admin')-->
+
+    <!--@section('content')-->
+    <!--@if (count($errors) > 0)-->
+    <ul class="list-group mb-3" th:if="${errors.size() > 0}">
+        <!--    @foreach ($errors->all() as $error)-->
+        <li th:each="error : ${errors}" class="list-group-item text-danger" th:text="${error}"></li>
+        <!--    @endforeach-->
+    </ul>
+    <!--@endif-->
+    <div class="card">
+        <div class="card-header card-header-primary">
+            <h4 class="card-title ">All categories <span class="badge badge-warning"
+                                                         th:text="${categories.size()}"></span></h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="text-primary">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th class="text-center">Edit</th>
+                        <th class="text-center">Delete</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--                @if ($categories->count() > 0)-->
+                    <!--                @foreach ($categories as $index => $category)-->
+                    <tr th:if="${categories.size() > 0}" th:each="category,iter : ${categories}">
+                        <td th:text="${iter.index + 1}">/td>
+                        <td th:text="${category.name}"></td>
+                        <td class="text-center">
+                            <a th:href="@{/category.edit/(id=${category.name})}" class="text-primary"
+                               title="Edit category">
+                                <i class="material-icons">create</i> edit
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <a th:href="@{/category.delete/(id=${category.name})}" class="text-warning"
+                               title="Delete category">
+                                <i class="material-icons">clear</i> delete
+                            </a>
+                        </td>
+                    </tr>
+                    <!--                @endforeach-->
+                    <!--                @else-->
+                    <tr th:unless="${categories.size() > 0}">
+                        <td colspan="4" class="text-center">No categories</td>
+                    </tr>
+                    <!--                @endif-->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<!--@endsection-->

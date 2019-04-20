@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin_layout}">
+<head>
+    <title>Category Form</title>
+</head>
+<body>
+<!--@extends('layouts.admin')-->
+
+<!--@section('content')-->
+<!--@if (count($errors) > 0)-->
+<div layout:fragment="content">
+    <ul class="list-group mb-3" th:if="${errors.size() > 0}">
+        <!--        @foreach ($errors->all() as $error)-->
+        <li th:each="error : ${errors}" th:text="${error}" class="list-group-item text-danger"></li>
+        <!--        @endforeach-->
+    </ul>
+<!--    @endif-->
+    <div class="card">
+        <div class="card-header card-header-primary h3">
+            Create a new category
+        </div>
+        <div class="card-body">
+            <form th:action="@{/category.store}" th:object="${category}" method="post">
+<!--                {{ csrf_field() }}-->
+                <div class="form-group">
+                    <label for="name_id" class="bmd-label-floating">Category name</label>
+                    <input type="text" name="name" th:field="*{name}" class="form-control" id="name_id" required>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+<!--@endsection-->

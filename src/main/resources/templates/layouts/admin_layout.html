@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8"/>
+    <link rel="apple-touch-icon" sizes="76x76" href="../../static/public/material-dark-admin/assets/img/apple-icon.png"
+          th:href="@{/public/material-dark-admin/assets/img/apple-icon.png}">
+/
+    <link rel="icon" type="image/png" href="../../static/public/material-dark-admin/assets/img/favicon.png"
+          th:href="@{/public/material-dark-admin/assets/img/favicon.png}">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Admin Blog</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
+          name='viewport'/>
+    <!--    <meta name="csrf-token" content="{{ csrf_token() }}">-->
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700"/>
+    <link rel="stylesheet" href="../../static/public/libs/material-icons/material-icons.css"
+          th:href="@{/public/libs/material-icons/material-icons.css}">
+    <link href="../../static/public/material-dark-admin/assets/css/material-dashboard.css"
+          th:href="@{/public/material-dark-admin/assets/css/material-dashboard.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/froala_editor.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/froala_editor.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/froala_style.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/froala_style.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/code_view.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/code_view.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/colors.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/colors.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/emoticons.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/emoticons.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/image_manager.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/image_manager.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/image.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/image.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/line_breaker.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/line_breaker.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/table.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/table.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/char_counter.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/char_counter.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/video.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/video.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/fullscreen.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/fullscreen.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/plugins/file.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/plugins/file.css}">
+
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/css/themes/royal.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/css/themes/royal.css}">
+    <link rel="stylesheet" href="../../static/public/libs/froala_editor_2.9.5/code.mirror.min.css"
+          th:href="@{/public/libs/froala_editor_2.9.5/code.mirror.min.css}">
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link href=" ../../static/public/material-dark-admin/assets/demo/demo.css"
+          th:href="@{/public/material-dark-admin/assets/demo/demo.css}" rel="stylesheet"/>
+    <!--    @yield('css')-->
+</head>
+
+<body class="dark-edition">
+<div class="wrapper ">
+    <div class="sidebar" data-color="purple" data-background-color="black"
+         th:src="@{/public/material-dark-admin/assets/img/sidebar-1.jpg}"
+         data-image="../../static/public/material-dark-admin/assets/img/sidebar-1.jpg">
+        <!--
+          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+          Tip 2: you can also add an image using data-image tag
+      -->
+        <div class="logo">
+            <div class="simple-text text-white logo-normal">
+                <img th:src="@{${admin.profile.avatar}}" alt="person"
+                     style="height: 40px; height: 40px; border-radius: 20px;" th:text="  ${admin.name}">
+            </div>
+        </div>
+        <div class="sidebar-wrapper">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin}">
+                        <i class="material-icons text-warning">apps</i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link collapse">
+                        <p class="cursor"><i class="material-icons cursor text-warning">grain</i>Categories <span
+                                id="category_c" class="badge badge-warning"></span><span
+                                class="float-right material-icons">expand_more</span></p>
+                        <div>
+                            <a class="nav-link" th:href="@{category.index}">
+                                <i class="material-icons">reorder</i>
+                                <p>All Categories</p>
+                            </a>
+                            <a class="nav-link" th:href="@{category.create}">
+                                <i class="material-icons">add</i>
+                                <p>Add Category</p>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link collapse">
+                        <p class="cursor"><i class="material-icons cursor text-warning">library_books</i>Posts <span
+                                id="post_c" class="badge badge-warning"></span><span class="float-right material-icons">expand_more</span>
+                        </p>
+                        <div>
+                            <a class="nav-link" th:href="@{/post.index}">
+                                <i class="material-icons">reorder</i>
+                                <p>All Posts</p>
+                            </a>
+                            <a class="nav-link" th:href="@{/post.trashed}">
+                                <i class="material-icons">delete_forever</i>
+                                <p>Trashed Posts</p>
+                            </a>
+                            <a class="nav-link" th:href="@{/post.create}">
+                                <i class="material-icons">add</i>
+                                <p>Add Post</p>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="nav-link collapse">
+                        <p class="cursor"><i class="material-icons cursor text-warning">book</i>Tags <span id="tag_c"
+                                                                                                           class="badge badge-warning"></span><span
+                                class="float-right material-icons">expand_more</span></p>
+                        <div>
+                            <a class="nav-link" th:href="@{/tag.index}">
+                                <i class="material-icons">reorder</i>
+                                <p>All Tags</p>
+                            </a>
+                            <a class="nav-link" th:href="@{/tag.create}">
+                                <i class="material-icons">add</i>
+                                <p>Add Tag</p>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <!--                @if (Auth::user()->admin)-->
+                <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                    <div class="nav-link collapse">
+                        <p class="cursor"><i class="material-icons cursor text-warning">people</i>Users <span
+                                id="user_c" class="badge badge-warning"></span><span class="float-right material-icons">expand_more</span>
+                        </p>
+                        <div>
+                            <a class="nav-link" th:href="@{/user.index}">
+                                <i class="material-icons">reorder</i>
+                                <p>All Users</p>
+                            </a>
+                            <a class="nav-link" th:href="@{/user.admins}">
+                                <i class="material-icons">person</i>
+                                <p>Admins</p>
+                            </a>
+                            <a class="nav-link" th:href="@{/user.create}">
+                                <i class="material-icons">add</i>
+                                <p>Add User</p>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+                <!--                @endif-->
+                <li class="nav-item ">
+                    <a class="nav-link" th:href="@{/profile.index}">
+                        <i class="material-icons text-warning">person</i>
+                        <p>Profile</p>
+                    </a>
+                </li>
+                <!--                @if (Auth::user()->admin)-->
+                <li class="nav-item " sec:authorize="isAuthenticated() && hasRole('ROLE_ADMIN')">
+                    <a class="nav-link" th:href="@{/siteinfo.index}">
+                        <i class="material-icons text-warning">settings</i>
+                        <p>Site Informations</p>
+                    </a>
+                </li>
+                <!--                @endif-->
+            </ul>
+        </div>
+    </div>
+    <div class="main-panel">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
+            <div class="container-fluid">
+                <div class="navbar-wrapper">
+                    <a class="navbar-brand" th:href="@{/admin.home}">Blog Admin</a>
+                </div>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                        aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                    <span class="navbar-toggler-icon icon-bar"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end">
+                    <form class="navbar-form">
+                        <div class="input-group no-border">
+                            <input type="text" value="" class="form-control" placeholder="Search...">
+                        </div>
+                    </form>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="material-icons">notifications</i>
+                                <span class="notification">5</span>
+                                <p class="d-lg-none d-md-block">
+                                    Some Actions
+                                </p>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="javascript:void(0)">Mike John responded to your email</a>
+                                <a class="dropdown-item" href="javascript:void(0)">You have 5 new tasks</a>
+                                <a class="dropdown-item" href="javascript:void(0)">You're now friend with Andrew</a>
+                                <a class="dropdown-item" href="javascript:void(0)">Another Notification</a>
+                                <a class="dropdown-item" href="javascript:void(0)">Another One</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-warning" title="logout" th:href="@{/logout}"
+                               onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                <i class="material-icons">person</i>Logout
+                            </a>
+                            <form id="logout-form" th:action="@{/logout}" method="POST" style="display: none;">
+                                <!--                                @csrf-->
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- End Navbar -->
+        <div class="content">
+            <div class="container-fluid">
+                <!--                @if(Session::has('info'))-->
+                <div class="alert alert-primary" th:if="${info != null}" role="alert" th:text="${info}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <!--                    {{ Session::get('info') }}-->
+                </div>
+                <br>
+                <!--                @endif-->
+                <!--                @if(Session::has('success'))-->
+                <div class="alert alert-primary" role="alert" th:if="${success != null}" th:text="${success}">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <!--                    {{ Session::get('success') }}-->
+                </div>
+                <br>
+                <!--                @endif-->
+                <div layout:fragment="content">
+
+                </div>
+                <!--                @yield('content')-->
+            </div>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="float-left">
+                    <ul>
+                        <li>
+                            <a href="https://creative-tim.com/presentation">
+                                About Us
+                            </a>
+                        </li>
+                        <li>
+                            <a href="http://blog.creative-tim.com">
+                                Blog
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright float-right" id="date">
+                    , made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.t.me/oybek8" target="_blank">Master</a>.
+                </div>
+            </div>
+        </footer>
+        <script>
+            const x = new Date().getFullYear();
+            let date = document.getElementById('date');
+            date.innerHTML = '&copy; ' + x + date.innerHTML;
+        </script>
+    </div>
+</div>
+<div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+        <a href="#" data-toggle="dropdown">
+            <i class="material-icons" style="padding: 10px 0">settings</i>
+        </a>
+        <ul class="dropdown-menu">
+            <li class="header-title"> Change color</li>
+            <li class="adjustments-line">
+                <a href="javascript:void(0)" class="switch-trigger active-color">
+                    <div class="badge-colors ml-auto mr-auto">
+                        <span class="badge filter badge-purple active" data-color="purple"></span>
+                        <span class="badge filter badge-azure" data-color="azure"></span>
+                        <span class="badge filter badge-green" data-color="green"></span>
+                        <span class="badge filter badge-warning" data-color="orange"></span>
+                        <span class="badge filter badge-danger" data-color="danger"></span>
+                    </div>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li class="header-title">Sidebar image</li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../../static/public/material-dark-admin/assets/img/sidebar-1.jpg"
+                         th:src="@{/public/material-dark-admin/assets/img/sidebar-1.jpg}" alt="">
+                </a>
+            </li>
+            <li class="active">
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+
+                    <img src="../../static/public/material-dark-admin/assets/img/sidebar-2.jpg"
+                         th:src="@{/public/material-dark-admin/assets/img/sidebar-2.jpg}" alt="">
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../../static/public/material-dark-admin/assets/img/sidebar-3.jpg"
+                         th:src="@{/public/material-dark-admin/assets/img/sidebar-3.jpg}" alt="">
+                </a>
+            </li>
+            <li>
+                <a class="img-holder switch-trigger" href="javascript:void(0)">
+                    <img src="../../static/public/material-dark-admin/assets/img/sidebar-4.jpg"
+                         th:src="@{/public/material-dark-admin/assets/img/sidebar-4.jpg}" alt="">
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!--   Core JS Files   -->
+<script src="../../static/public/material-dark-admin/assets/js/core/jquery.min.js"
+        th:src="@{/public/material-dark-admin/assets/js/core/jquery.min.js}"></script>
+<script src="../../static/public/material-dark-admin/assets/js/core/popper.min.js"
+        th:src="@{/public/material-dark-admin/assets/js/core/popper.min.js}"></script>
+<script src="../../static/public/material-dark-admin/assets/js/core/bootstrap-material-design.min.js"
+        th:src="@{/public/material-dark-admin/assets/js/core/bootstrap-material-design.min.js}"></script>
+<script src="../../static/public/material-dark-admin/assets/js/default-passive-events.js"
+        th:src="@{/public/material-dark-admin/assets/js/default-passive-events.js}"></script>
+<script src="../../static/public/mater/ial-dark-admin/assets/js/plugins/perfect-scrollbar.jquery.min.js"
+        th:src="@{/public/material-dark-admin/assets/js/plugins/perfect-scrollbar.jquery.min.js}"></script>
+
+<script src="../../static/public/material-dark-admin/assets/js/buttons.js"
+        th:src="@{/public/material-dark-admin/assets/js/buttons.js}"></script>
+<!--  Google Maps Plugin    -->
+<!--{{-->
+<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--&#45;&#45;}}-->
+<!-- Chartist JS -->
+<script src="../../static/public/material-dark-admin/assets/js/plugins/chartist.min.js"
+        th:src="@{/public/material-dark-admin/assets/js/plugins/chartist.min.js}"></script>
+<!--  Notifications Plugin    -->
+<script src="../../static/public/material-dark-admin/assets/js/plugins/bootstrap-notify.js"
+        th:src="@{/public/material-dark-admin/assets/js/plugins/bootstrap-notify.js}"></script>
+<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+<script src="../../static/public/material-dark-admin/assets/js/material-dashboard.js"
+        th:src="@{/public/material-dark-admin/assets/js/material-dashboard.js}"></script>
+
+<!--text editor-->
+
+<script src="../../static/public/libs/froala_editor_2.9.5/code.mirror.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/code.mirror.min.js}"></script>
+<script src="../../static/public/libs/froala_editor_2.9.5/xml.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/xml.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/froala_editor.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/froala_editor.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/align.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/align.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/code_beautifier.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/code_beautifier.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/code_view.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/code_view.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/colors.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/colors.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/draggable.min.jsv"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/draggable.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/emoticons.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/emoticons.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/font_size.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/font_size.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/font_family.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/font_family.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/image.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/image.min.js}"></script>
+<script type="text/javascript" src="../../static/public/libs/froala_editor_2.9.5/js/plugins/file.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/file.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/image_manager.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/image_manager.min.js}"></script>
+<script type="text/javascript"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/line_breaker.min.js}"></script>
+<script type="text/javascript" src="../../static/public/libs/froala_editor_2.9.5/js/plugins/link.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/link.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/lists.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/lists.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/paragraph_format.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/paragraph_format.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/paragraph_style.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/paragraph_style.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/video.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/video.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/table.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/table.min.js}"></script>
+<script type="text/javascript" src="../../static/public/libs/froala_editor_2.9.5/js/plugins/url.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/url.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/entities.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/entities.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/char_counter.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/char_counter.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/inline_style.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/inline_style.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/save.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/save.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/fullscreen.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/fullscreen.min.js}"></script>
+<script type="text/javascript"
+        src="../../static/public/libs/froala_editor_2.9.5/js/plugins/quote.min.js"
+        th:src="@{/public/libs/froala_editor_2.9.5/js/plugins/quote.min.js}"></script>
+<!-- Material Dashboard DEMO methods, don't include it in your project! -->
+<script
+        src="../../static/public/material-dark-admin/assets/demo/demo.js"
+        th:src="@{/public/material-dark-admin/assets/demo/demo.js}"></script>
+<script src="../../static/public/material-dark-admin/assets/js/admin.js"
+        th:src="@{/public/material-dark-admin/assets/js/admin.js}"></script>
+<script>
+    $(document).ready(function () {
+
+        $.ajax({
+            url: "{{route('admin.counts')}}",
+            data: 'json',
+            method: 'GET',
+            success: function (data) {
+                $('#user_c').html(data.user_c);
+                $('#category_c').html(data.category_c);
+                $('#tag_c').html(data.tag_c);
+                $('#post_c').html(data.post_c);
+            },
+            error: function (data) {
+                console.log(data)
+            }
+        });
+
+        $('.summernote').froalaEditor({
+            theme: 'royal'
+        })
+    });
+</script>
+
+
+</body>
+
+</html>

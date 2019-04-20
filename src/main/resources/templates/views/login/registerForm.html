@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/app_layout}">
+<head>
+    <title>Register Form</title>
+</head>
+<body>
+
+<!--@extends('layouts.app')-->
+
+<!--@section('content')-->
+<div layout:fragment="content" class="container">
+
+    <div class="alert alert-info" th:if="${exist}">
+        <p class="text text-center">
+            User with this email already exist
+        </p>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Register</div>
+
+                <div class="card-body">
+                    <form th:action="@{/register}" th:object="${user}" method="post">
+
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" th:field="*{name}" name="name" th:value="*{name}" required autofocus>
+
+<!--                                @if ($errors->has('name'))-->
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}" role="alert">
+<!--                                        <strong>{{ $errors->first('name') }}</strong>-->
+                                    </span>
+<!--                                @endif-->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="email" class="col-md-4 col-form-label text-md-right">E-Mail Address</label>
+
+                            <div class="col-md-6">
+                                <input id="email" type="email" class="form-control" th:field="*{email}" name="email" th:value="*{email}" required>
+
+<!--                                @if ($errors->has('email'))-->
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" role="alert">
+<!--                                        <strong>{{ $errors->first('email') }}</strong>-->
+                                    </span>
+<!--                                @endif-->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password" type="password" class="form-control" th:field="*{password}" name="password" required>
+
+<!--                                @if ($errors->has('password'))-->
+                                <span class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}" role="alert">
+<!--                                        <strong>{{ $errors->first('password') }}</strong>-->
+                                    </span>
+<!--                                @endif-->
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
+
+                            <div class="col-md-6">
+                                <input id="password-confirm" th:field="*{confirmPassword}" type="password" class="form-control" name="password_confirmation" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group row mb-0">
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" class="btn btn-primary">
+                                    Register
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--@endsection-->

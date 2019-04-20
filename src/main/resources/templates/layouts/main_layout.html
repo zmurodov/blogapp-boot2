@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSRF Token -->
+<!--    <meta name="csrf-token" content="{{ csrf_token() }}">-->
+    <link rel="apple-touch-icon" href="../../static/public/img/logo.png" th:href="@{public/img/logo.png}">
+    <link rel="shortcut icon" href="../../static/public/img/logo.png" th:href="@{public/img/logo.png}" type="image/png">
+
+    <title>@yield('title')</title>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../static/public/libs/bootstrap-4.3.1/css/bootstrap.min.css"
+          th:href="@{public/libs/bootstrap-4.3.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/public/libs/ionicons-4.5.5/css/ionicons.min.css"
+          th:href="@{public/libs/ionicons-4.5.5/css/ionicons.min.css}">
+    <link rel="stylesheet" href="../../static/public/css/animate.css"
+          th:href="@{public/css/animate.css}">
+    <link rel="stylesheet" href="../../static/public/css/main.css"
+          th:href="@{public/css/main.css}">
+
+    <script src="../../static/public/libs/jquery-3.3.1.slim.min.js"
+            th:src="@{public/libs/jquery-3.3.1.slim.min.js}"></script>
+    <script src="../../static/public/libs/popper.min.js"
+            th:src="@{public/libs/popper.min.js}"></script>
+    <script src="../../static/public/libs/bootstrap-4.3.1/js/bootstrap.min.js"
+            th:src="@{public/libs/bootstrap-4.3.1/js/bootstrap.min.js}"></script>
+<!--    @yield('style')-->
+</head>
+<body>
+<div id="main">
+    <nav class="my-nav">
+        <div class="container font-m">
+            <div class="left">
+                <a href="#" class="logo">
+                    <img src="{{$site->logo}}" alt="logo"> {{$site->name}}
+                </a>
+            </div>
+            <div class="right search size24">
+                <i class="icon ion-android-search"></i>
+            </div>
+            <div class="info right">
+                <a href="tel:{{$site->phone}}" class="bg-success" title="{{$site->phone}}"><i class="icon ion-ios-telephone"></i></a> <span>{{$site->phone}}</span>
+                <a href="mailto:{{$site->email}}" class="bg-warning" title="{{$site->email}}"><i class="icon ion-email"></i></a> <span>{{$site->email}}</span>
+                <a href="{{$site->facebook}}" class="bg-primary"><i class="icon ion-social-facebook"></i></a>
+                <a href="{{$site->instagram}}" style="background: crimson"><i class="icon ion-social-instagram"></i></a>
+                <a href="{{$site->twitter}}" class="bg-info"><i class="icon ion-social-twitter"></i></a>
+                <a href="{{$site->youtube}}" class="bg-danger"><i class="icon ion-social-youtube"></i></a>
+            </div>
+        </div>
+    </nav>
+    @yield('head')
+    @yield('body')
+    <footer>
+        <div class="container py-3">footer</div>
+    </footer>
+</div>
+
+@yield('script')
+</body>
+</html>

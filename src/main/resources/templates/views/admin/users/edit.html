@@ -1,0 +1,84 @@
+@extends('layouts.admin')
+
+@section('content')
+@if (count($errors) > 0)
+<ul class="list-group mb-3">
+    @foreach ($errors->all() as $error)
+    <li class="list-group-item text-danger">{{$error}}</li>
+    @endforeach
+</ul>
+@endif
+<div class="row">
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Edit Profile</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('profile.update') }}" method="post" enctype="multipart/form-data">
+                    {{ csrf_field() }}
+                    <div class="form-group bmd-form-group">
+                        <label for="title" class="bmd-label-floating">Name</label>
+                        <input type="text" name="name" class="form-control" id="title" value="{{$user->name}}" required>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="email" class="bmd-label-floating">email</label>
+                        <input type="email" name="email" class="form-control" id="email" value="{{$user->email}}" required>
+                    </div>
+                    <div class="bmd-from-group">
+                        <label class="bmd-label-floating">Fetured image</label>
+                        <input type="file" name="avatar" class="form-control" id="fetured" value="{{$user->profile->avatar}}">
+                    </div><br>
+                    <div class="form-group bmd-form-group">
+                        <label for="facebook" class="bmd-label-floating">Facebook</label>
+                        <input type="text" name="facebook" class="form-control" id="facebook" value="{{$user->profile->facebook}}" required>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="tinstagram" class="bmd-label-floating">Instagram</label>
+                        <input type="text" name="instagram" class="form-control" id="instagram" value="{{$user->profile->instagram}}" required>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="youtube" class="bmd-label-floating">Youtube</label>
+                        <input type="text" name="youtube" class="form-control" id="youtube" value="{{$user->profile->youtube}}" required>
+                    </div>
+                    <div>Content</div>
+                    <div>
+                        <textarea name="about" cols="30" rows="10" class="form-control summernote" id="content" placeholder="Content" required>{{$user->profile->about}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="material-icons">refresh</i> Update profile</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h4 class="card-title">Change password</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('profile.updatepassword') }}" method="post">
+                    {{ csrf_field() }}
+                    <div class="form-group bmd-form-group">
+                        <label for="pwd" class="bmd-label-floating">Current password</label>
+                        <input type="password" name="pwd" class="form-control" id="pwd" required>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="pwd1" class="bmd-label-floating">New password</label>
+                        <input type="password" name="pwd1" class="form-control" id="pwd1" required>
+                    </div>
+                    <div class="form-group bmd-form-group">
+                        <label for="pwd2" class="bmd-label-floating">New password again</label>
+                        <input type="password" name="pwd2" class="form-control" id="pwd2" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="material-icons">refresh</i> Change</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@endsection

@@ -1,0 +1,58 @@
+@extends('layouts.admin')
+
+@section('content')
+<div class="row">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card card-profile">
+            <div class="card-avatar">
+                <a href="#pablo">
+                    <img class="img" src="{{asset($user->profile->avatar)}}">
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="clearfix">
+
+                    <div class="float-left">
+                        <h6 class="card-category">
+                            <i class="material-icons text-warning">person</i>
+                            @if ($user->admin)
+                            Admin
+                            @else
+                            User
+                            @endif
+                        </h6>
+                    </div>
+                    <div class="float-right">
+                        <h4 class="card-title text-warning">{{$user->name}}</h4>
+                    </div>
+                </div>
+                <hr>
+                <div class="social">
+                    <div class="row">
+                        <div class="col-4">
+                            <a href="{{$user->facebook}}"><img src="{{asset('img/facebook.png')}}" alt="facebook"></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="{{$user->instagram}}"><img src="{{asset('img/instagram.png')}}" alt="instagram"></a>
+                        </div>
+                        <div class="col-4">
+                            <a href="{{$user->youtube}}"><img src="{{asset('img/youtube.png')}}" alt="youtube"></a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <a href="{{route('profile.edit')}}" class="btn btn-primary btn-block"><i class="material-icons">settings</i> Setting</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-8">
+        <div class="card card-profile">
+            <div class="card-body">
+                <h4 class="text-warning">About</h4>
+                <hr>
+                {{$user->profile->about}}
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
